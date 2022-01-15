@@ -3,7 +3,7 @@
 License
 
 Menge
-Copyright � and trademark � 2012-14 University of North Carolina at Chapel Hill.
+Copyright � and trademark � 2012-14 University of North Carolina at Chapel Hill.
 All rights reserved.
 
 Permission to use, copy, modify, and distribute this software and its documentation
@@ -146,10 +146,22 @@ SimulatorDBEntry* SimulatorDB::getDBEntry(const std::string& modelName) {
 /////////////////////////////////////////////////////////////////////////////
 
 SimulatorDBEntry* SimulatorDB::registerEntry(SimulatorDBEntry* entry) {
+  // entry->commandLineName(): orca
+  // entry->commandLineName(): pedvo
+  // entry->commandLineName(): helbing
+  // entry->commandLineName(): zanlungo
+  // entry->commandLineName(): karamouzas
+  // entry->commandLineName(): johannson
+  // entry->commandLineName(): gcf
+  // entry->commandLineName(): dummy
   std::string entryName = entry->commandLineName();
+
   for (size_t i = 0; i < _entries.size(); ++i) {
+
     std::string name = _entries[i]->commandLineName();
     std::transform(name.begin(), name.end(), name.begin(), ::tolower);
+
+    // 进行一次过滤，如果已经注册过了，那就不需要进行过滤了
     if (entryName == name) {
       logger << Logger::ERR_MSG
              << "Failed to register a pedestrian model\n"
@@ -164,6 +176,8 @@ SimulatorDBEntry* SimulatorDB::registerEntry(SimulatorDBEntry* entry) {
       return 0x0;
     }
   }
+
+  // EntryList _entries;
   _entries.push_back(entry);
   return entry;
 }

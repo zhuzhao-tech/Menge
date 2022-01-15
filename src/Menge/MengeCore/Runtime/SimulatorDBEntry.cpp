@@ -3,7 +3,7 @@
 License
 
 Menge
-Copyright � and trademark � 2012-14 University of North Carolina at Chapel Hill.
+Copyright � and trademark � 2012-14 University of North Carolina at Chapel Hill.
 All rights reserved.
 
 Permission to use, copy, modify, and distribute this software and its documentation
@@ -51,11 +51,17 @@ namespace Menge {
 //                     Implementation of SimulatorDBEntry
 ////////////////////////////////////////////////////////////////////////////
 
-Agents::SimulatorInterface* SimulatorDBEntry::initSimulator(const std::string& sceneFileName,
-                                                            bool VERBOSE) {
+// 4squareS.xml, false
+Agents::SimulatorInterface* SimulatorDBEntry::initSimulator(
+  const std::string& sceneFileName,
+  bool VERBOSE
+) {
   Agents::SimulatorInterface* sim = getNewSimulator();
   Agents::AgentInitializer* agentInit = getAgentInitalizer();
+
+  // 通过xml来初始化agentInit
   Agents::SimXMLLoader loader(sim);
+
   logger.line();
   try {
     if (!loader.loadFromXML(sceneFileName, agentInit, VERBOSE)) {
@@ -126,10 +132,18 @@ bool SimulatorDBEntry::finalize(Agents::SimulatorInterface* sim, BFSM::FSM* fsm)
 
 ////////////////////////////////////////////////////////////////////////////
 
+// agentCount, 0.2f, 0, 800.f, 4squareB.xml, 4squareS.xml, ., 2.1, false
 Agents::SimulatorInterface* SimulatorDBEntry::getSimulator(
-    size_t& agentCount, float& simTimeStep, size_t subSteps, float simDuration,
-    const std::string& behaveFile, const std::string& sceneFile, const std::string& outFile,
-    const std::string& scbVersion, bool verbose) {
+    size_t& agentCount, 
+    float& simTimeStep, 
+    size_t subSteps, 
+    float simDuration,
+    const std::string& behaveFile, 
+    const std::string& sceneFile, 
+    const std::string& outFile,
+    const std::string& scbVersion, 
+    bool verbose
+) {
   _sim = initSimulator(sceneFile, verbose);
   if (!_sim) {
     return 0x0;

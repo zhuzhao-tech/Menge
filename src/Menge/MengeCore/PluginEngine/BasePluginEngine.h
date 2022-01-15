@@ -74,19 +74,26 @@ class BasePluginEngine {
 #else
     std::string extension("*.so");
 #endif
+
     if (!os::listdir(pluginFolder, files, extension)) {
       return 0;
     }
 
+    // getIntroMessage() 由 CorePluginEngine 和 VisPluginEngine 继承
     logger << Logger::INFO_MSG << getIntroMessage();
 
     StringListCItr itr = files.begin();
     for (; itr != files.end(); ++itr) {
+
+      // 找到合适的fullPath
       std::string fullPath;
       if (!os::path::absPath(os::path::join(2, pluginFolder.c_str(), (*itr).c_str()), fullPath)) {
         logger << Logger::ERR_MSG << "Unable to get absolute path for " << (*itr);
         continue;
       }
+
+
+      // 初始化PluginType
       PluginType* plugin;
       try {
         plugin = new PluginType(fullPath);
@@ -95,9 +102,12 @@ class BasePluginEngine {
         continue;
       }
       logger << Logger::INFO_MSG << "Loaded: " << plugin->getName() << "\n";
-      ;
       logger << "\t" << plugin->getDescription();
+
+      // 注册plugin
       plugin->registerPlugin(static_cast<EngineType*>(this));
+
+      // 把plugin保存下来
       _plugins.insert(typename PluginMap::value_type((*itr), plugin));
     }
 

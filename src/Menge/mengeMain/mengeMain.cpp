@@ -3,7 +3,7 @@
 License
 
 Menge
-Copyright � and trademark � 2012-14 University of North Carolina at Chapel Hill.
+Copyright � and trademark � 2012-14 University of North Carolina at Chapel Hill.
 All rights reserved.
 
 Permission to use, copy, modify, and distribute this software and its documentation
@@ -120,44 +120,20 @@ bool parseCommandParameters(int argc, char* argv[], ProjectSpec* spec, const Sim
   try {
     TCLAP::CmdLine cmd("Crowd simulation with behavior.  ", ' ', "0.9.2");
     // arguments: flag, name, description, required, default value type description
-    TCLAP::ValueArg<std::string> projArg("p", "project", "The name of the project file", false, "",
-                                         "string", cmd);
-    TCLAP::ValueArg<std::string> sceneArg("s", "scene", "Scene configuration file", false, "",
-                                          "string", cmd);
-    TCLAP::ValueArg<std::string> behaveArg("b", "behavior", "Scene behavior file", false, "",
-                                           "string", cmd);
-    TCLAP::ValueArg<std::string> viewCfgArg("", "view",
-                                            "A view config file to specify the "
-                                            "view.",
-                                            false, "", "string", cmd);
-    TCLAP::ValueArg<std::string> outputArg("o", "output",
-                                           "Name of output scb file (Only writes"
-                                           " output if file provided)",
-                                           false, "", "string", cmd);
-    TCLAP::ValueArg<std::string> versionArg("", "scbVersion",
-                                            "Version of scb file to write "
-                                            "(1.0, 2.0, 2.1, 2.2, 2.3, or 2.4 -- 2.1 is the "
-                                            "default",
-                                            false, "", "string", cmd);
-    TCLAP::ValueArg<float> durationArg("d", "duration",
-                                       "Maximum duration of simulation (if "
-                                       "final state is not achieved.)  Defaults to 400 seconds.",
-                                       false, -1.f, "float", cmd);
-    TCLAP::ValueArg<float> timeStepArg("t", "timeStep",
-                                       "Override the time step in the scene "
-                                       "specification with this one",
-                                       false, -1.f, "float", cmd);
-    TCLAP::SwitchArg silentArg("", "verbose",
-                               "Make the simulator print loading and simulating "
-                               "progress",
-                               cmd, false);
-    TCLAP::ValueArg<int> randomSeedArg("r", "random",
-                                       "Specify the global, default random seed. "
+    TCLAP::ValueArg<std::string> projArg("p", "project", "The name of the project file", false, "", "string", cmd);
+    TCLAP::ValueArg<std::string> sceneArg("s", "scene", "Scene configuration file", false, "", "string", cmd);
+    TCLAP::ValueArg<std::string> behaveArg("b", "behavior", "Scene behavior file", false, "", "string", cmd);
+    TCLAP::ValueArg<std::string> viewCfgArg("", "view", "A view config file to specify the view.", false, "", "string", cmd);
+    TCLAP::ValueArg<std::string> outputArg("o", "output", "Name of output scb file (Only writes output if file provided)", false, "", "string", cmd);
+    TCLAP::ValueArg<std::string> versionArg("", "scbVersion","Version of scb file to write (1.0, 2.0, 2.1, 2.2, 2.3, or 2.4 -- 2.1 is the  default", false, "", "string", cmd);
+    TCLAP::ValueArg<float> durationArg("d", "duration", "Maximum duration of simulation (if final state is not achieved.)  Defaults to 400 seconds.", false, -1.f, "float", cmd);
+    TCLAP::ValueArg<float> timeStepArg("t", "timeStep", "Override the time step in the scene  specification with this one", false, -1.f, "float", cmd);
+    TCLAP::SwitchArg silentArg("", "verbose", "Make the simulator print loading and simulating progress", cmd, false);
+    TCLAP::ValueArg<int> randomSeedArg("r", "random", "Specify the global, default random seed. "
                                        "If not defined, or zero is given, the default seed will "
                                        "be extracted from the system clock every time a default "
                                        "seed is requested.  Otherwise the constant value will "
-                                       "be provided.",
-                                       false, -1, "int", cmd);
+                                       "be provided.", false, -1, "int", cmd);
     TCLAP::ValueArg<int> subSampleArg("", "subSteps",
                                       "Specify the number of sub steps to take."
                                       " If the simulation time step is 10 Hz with 1 substep, it"
@@ -308,8 +284,8 @@ int simMain(SimulatorDBEntry* dbEntry, const std::string& behaveFile, const std:
   using MengeVis::Viewer::ViewConfig;
 
   SimulatorInterface* sim =
-      dbEntry->getSimulator(agentCount, TIME_STEP, SUB_STEPS, SIM_DURATION, behaveFile, sceneFile,
-                            outFile, scbVersion, VERBOSE);
+      // agentCount, 0.2f, 0, 800.f, 4squareB.xml, 4squareS.xml, ., 2.1, false
+      dbEntry->getSimulator(agentCount, TIME_STEP, SUB_STEPS, SIM_DURATION, behaveFile, sceneFile, outFile, scbVersion, VERBOSE);
 
   if (sim == 0x0) {
     return 1;
@@ -375,6 +351,8 @@ int simMain(SimulatorDBEntry* dbEntry, const std::string& behaveFile, const std:
       view.run();
     }
   } else {
+
+    // 这里还有不用视图跑的
     bool running = true;
     while (running) {
       running = sim->step();
@@ -392,21 +370,37 @@ int main(int argc, char* argv[]) {
   logger.setFile("log.html");
   logger << Logger::INFO_MSG << "initialized logger";
 
+  // ./menge 可执行程序
   std::string exePath(argv[0]);
+  
+  // /home/mk/workLiu/simulation/Menge/Exe/menge 可执行程序绝对路径
   std::string absExePath;
   os::path::absPath(exePath, absExePath);
+
+  // ROOT: /home/mk/workLiu/simulation/Menge/Exe
+  // tail: menge
   std::string tail;
   os::path::split(absExePath, ROOT, tail);
+
   CorePluginEngine plugins(&simDB);
+
+  // 打印一行分割线
   logger.line();
+
+  // 获取plugin的路径
+  // pluginPath: /home/mk/workLiu/simulation/Menge/Exe/plugins
   std::string pluginPath = getPluginPath();
   logger << Logger::INFO_MSG << "Plugin path: " << pluginPath;
+
+  // 加载plugin
   plugins.loadPlugins(pluginPath);
+
   if (simDB.modelCount() == 0) {
     logger << Logger::INFO_MSG << "There were no pedestrian models in the plugins folder\n";
     return 1;
   }
 
+  // 解析参数
   ProjectSpec projSpec;
   if (!parseCommandParameters(argc, argv, &projSpec, simDB)) {
     return 0;
@@ -420,6 +414,7 @@ int main(int argc, char* argv[]) {
   TIME_STEP = projSpec.getTimeStep();
   SUB_STEPS = projSpec.getSubSteps();
   SIM_DURATION = projSpec.getDuration();
+
   std::string dumpPath = projSpec.getDumpPath();
   Menge::Math::setDefaultGeneratorSeed(projSpec.getRandomSeed());
   std::string outFile = projSpec.getOutputName();
@@ -434,7 +429,16 @@ int main(int argc, char* argv[]) {
     logger.close();
     return 1;
   }
+  
+  // projSpec.getBehavior()    : /home/mk/workLiu/simulation/Menge/examples/core/4square/4squareB.xml
+  // projSpec.getScene()       : /home/mk/workLiu/simulation/Menge/examples/core/4square/4squareS.xml
+  // projSpec.getOutputName()  : 
+  // projSpec.getSCBVersion()  : 2.1
+  // useVis                    : 1
+  // viewCfgFile               : /home/mk/workLiu/simulation/Menge/examples/core/4square/4squareV.xml
+  // dumpPath                  : .
 
+  // 前期都是准备，到这一步开始运行
   int result =
       simMain(simDBEntry, projSpec.getBehavior(), projSpec.getScene(), projSpec.getOutputName(),
               projSpec.getSCBVersion(), useVis, viewCfgFile, dumpPath);

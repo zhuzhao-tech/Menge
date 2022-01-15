@@ -59,6 +59,8 @@ class Plugin {
       : _handle(0), _registerFcnAddr(0x0), _getNameFcnAddr(0x0), _getDescFcnAddr(0x0) {
     // This might throw a std::runtime_error which will immediately propagate upwards
     try {
+
+      // 加载共享库
       _handle = SharedLibrary::Load(filename);
     } catch (std::exception& e) {
       logger << Logger::ERR_MSG << e.what();
@@ -66,8 +68,7 @@ class Plugin {
     }
 
     try {
-      _registerFcnAddr =
-          SharedLibrary::GetFunctionPointer<RegisterPluginFcn>(_handle, getRegisterName());
+      _registerFcnAddr = SharedLibrary::GetFunctionPointer<RegisterPluginFcn>(_handle, getRegisterName());
       _getNameFcnAddr = SharedLibrary::GetFunctionPointer<GetCharPtrFcn>(_handle, "getName");
       _getDescFcnAddr = SharedLibrary::GetFunctionPointer<GetCharPtrFcn>(_handle, "getDescription");
     } catch (std::exception& e) {

@@ -101,6 +101,8 @@ class ElementDB {
   static void initialize() {
     if (!_initialized) {
       _initialized = true;
+
+      // 初始化时只执行这一个方法
       addBuiltins();
     }
   }
@@ -124,6 +126,8 @@ class ElementDB {
   static bool addFactory(Factory* factory) {
     std::string testName(factory->name());
     typename std::list<Factory*>::iterator itr = _factories.begin();
+
+    // 进行一次过滤，如果已经添加了就不再添加
     for (; itr != _factories.end(); ++itr) {
       std::string prevName((*itr)->name());
       if (testName == prevName) {

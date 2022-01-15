@@ -6,7 +6,8 @@
                 "${default}",
                 "${workspaceFolder}/src/Menge",
                 "${workspaceFolder}/src/include",
-                "${workspaceFolder}/src"
+                "${workspaceFolder}/src",
+                "${workspaceFolder}/src/thirdParty"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/gcc",

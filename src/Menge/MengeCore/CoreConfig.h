@@ -77,6 +77,8 @@
 // would break if visibility wasn't set during export _and_ import
 // because GCC would immediately forget all type infos encountered.
 // See http://gcc.gnu.org/wiki/Visibility
+
+// what is __attribute__(https://www.jianshu.com/p/9011febfebbd)
 #define MENGE_API __attribute__((visibility("default")))
 #endif
 #endif

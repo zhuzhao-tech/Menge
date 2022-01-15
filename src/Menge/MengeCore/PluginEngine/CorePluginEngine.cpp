@@ -29,9 +29,11 @@ namespace PluginEngine {
 /////////////////////////////////////////////////////////////////////
 
 CorePluginEngine::CorePluginEngine(SimulatorDB* simDB)
-    : BasePluginEngine<CorePluginEngine, Plugin<CorePluginEngine> >(), _simDB(simDB) {
+    : BasePluginEngine<CorePluginEngine, Plugin<CorePluginEngine> >(), _simDB(simDB) 
+{
   registerModelDBEntry(new ORCA::DBEntry());
   registerModelDBEntry(new PedVO::DBEntry());
+
   BFSM::ActionDB::initialize();
   BFSM::ConditionDB::initialize();
   BFSM::TargetDB::initialize();
@@ -40,12 +42,14 @@ CorePluginEngine::CorePluginEngine(SimulatorDB* simDB)
   BFSM::TaskDB::initialize();
   BFSM::GoalDB::initialize();
   BFSM::GoalSelectorDB::initialize();
+
   Agents::ElevationDB::initialize();
   Agents::SpatialQueryDB::initialize();
   Agents::AgentGeneratorDB::initialize();
   Agents::ObstacleSetDB::initialize();
   Agents::ProfileSelectorDB::initialize();
   Agents::StateSelectorDB::initialize();
+  
   EventEffectDB::initialize();
   EventTriggerDB::initialize();
   EventTargetDB::initialize();

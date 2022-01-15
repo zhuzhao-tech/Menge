@@ -36,18 +36,26 @@ namespace Menge {
 
 class SimSystem;
 class BaseAgentContext;
+
+
 namespace Agents {
 class AgentInitializer;
 class Integrator;
 class SimulatorInterface;
 }  // namespace Agents
+
+
 namespace SceneGraph {
 class GLScene;
 }
+
+
 namespace BFSM {
 class FSMDescrip;
 class FSM;
 }  // namespace BFSM
+
+
 
 /*!
  @brief    An entry in the simulator database.
