@@ -3,7 +3,7 @@
 License
 
 Menge
-Copyright � and trademark � 2012-14 University of North Carolina at Chapel Hill.
+Copyright � and trademark � 2012-14 University of North Carolina at Chapel Hill.
 All rights reserved.
 
 Permission to use, copy, modify, and distribute this software and its documentation
@@ -100,6 +100,8 @@ void ProjectSpec::setOutputName(const std::string& fileName) {
 
 ////////////////////////////////////////////////////////////////
 
+// 解析xml文件的地方
+// ../examples/core/4square.xml
 bool ProjectSpec::loadFromXML(const std::string& xmlName) {
   logger << Logger::INFO_MSG << "Parsing project XML: " << xmlName;
   TiXmlDocument xml(xmlName);

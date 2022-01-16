@@ -113,7 +113,11 @@ std::string getPluginPath() {
  *            project specification and command-line parameters require it
  *            and false if not.
  */
-bool parseCommandParameters(int argc, char* argv[], ProjectSpec* spec, const SimulatorDB& simDB) {
+bool parseCommandParameters(
+  int argc, char* argv[], 
+  ProjectSpec* spec, 
+  const SimulatorDB& simDB
+) {
   bool valid = true;
   // Command line argument fields
   bool verbose = false;
@@ -264,9 +268,16 @@ bool parseCommandParameters(int argc, char* argv[], ProjectSpec* spec, const Sim
  *windows.
  *  @returns  0 for a successful run, non-zero otherwise.
  */
-int simMain(SimulatorDBEntry* dbEntry, const std::string& behaveFile, const std::string& sceneFile,
-            const std::string& outFile, const std::string& scbVersion, bool visualize,
-            const std::string& viewCfgFile, const std::string& dumpPath) {
+int simMain(
+  SimulatorDBEntry* dbEntry, 
+  const std::string& behaveFile, 
+  const std::string& sceneFile,
+  const std::string& outFile, 
+  const std::string& scbVersion, 
+  bool visualize,
+  const std::string& viewCfgFile, 
+  const std::string& dumpPath
+) {
   size_t agentCount;
   if (outFile != "") {
     logger << Logger::INFO_MSG << "Attempting to write scb file: " << outFile << "\n";

@@ -3,7 +3,7 @@
 License
 
 Menge
-Copyright © and trademark ™ 2012-14 University of North Carolina at Chapel Hill.
+Copyright ï¿½ and trademark ï¿½ 2012-14 University of North Carolina at Chapel Hill.
 All rights reserved.
 
 Permission to use, copy, modify, and distribute this software and its documentation
@@ -77,8 +77,11 @@ Vector2 Obstacle::getP1() const {
 
 /////////////////////////////////////////////////////////////////////////////
 
-Obstacle::NearTypeEnum Obstacle::distanceSqToPoint(const Vector2& pt, Vector2& nearPt,
-                                                   float& distSq) const {
+Obstacle::NearTypeEnum Obstacle::distanceSqToPoint(
+  const Vector2& pt, 
+  Vector2& nearPt,
+  float& distSq
+) const {
   Vector2 P1 = getP1();
   Vector2 ba(P1 - _point);
   Vector2 ca(pt - _point);

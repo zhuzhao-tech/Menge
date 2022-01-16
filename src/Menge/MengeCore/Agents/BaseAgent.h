@@ -117,12 +117,15 @@ class MENGE_API BaseAgent : public ProximityQuery {
   /*!
    @brief      Updates the two-dimensional position and two-dimensional velocity of this agent.
 
+               更新Agent的二维坐标和二维速度
    @param    timeStep    The time step that will be taken.
    */
   void update(float timeStep);
 
   /*!
    @brief    Updates the orientation.
+
+             更新方向[继承当前的速度和坐标，起调整作用]
 
    This is guaranteed to be called after the current velocity and position have been integrated.
 
@@ -133,8 +136,12 @@ class MENGE_API BaseAgent : public ProximityQuery {
   /*!
    @brief    Method for sub-classes to perform additional update work
 
+             用于子类执行附加更新操作
+
    This is the last thing called by the update method.  When this is called, position, velocity,
    and orientation will be updated in the base agent class.
+
+   这是update调用的最后一个方法，当它被调用时，position, velocity, orientation[坐标、速度、]
    */
   virtual void postUpdate() {}
 
@@ -175,6 +182,8 @@ class MENGE_API BaseAgent : public ProximityQuery {
   /*!
    @brief    Add an velocity modifier to the agent
 
+             向Agent添加速度修改器
+
    @param    v    The modifier to add
    */
   void addVelModifier(BFSM::VelModifier* v);
@@ -189,36 +198,52 @@ class MENGE_API BaseAgent : public ProximityQuery {
   // Properties of a basic agent
   /*!
    @brief    The maximum speed the agent can take.
+
+             Agent可以采用的最大速度
    */
   float _maxSpeed;
 
   /*!
    @brief    The maximum acceleration the agent can experience (interpreted isotropically).
+
+             Agent的最大加速度
    */
   float _maxAccel;
 
   /*!
    @brief    The preferred speed of the agent
+
+             代理的首选速度
    */
   float _prefSpeed;
 
   /*!
    @brief    The current 2D position of the agent
+
+             Agent当前的2D位置
    */
   Math::Vector2 _pos;
 
   /*!
    @brief    The current 2D velocity of the agent
+
+             Agent当前的2D速度
+
    */
   Math::Vector2 _vel;
 
   /*!
    @brief    The 2D preferred velocity of the agent
+
+             Agent首选2D速度
+
    */
   PrefVelocity _velPref;
 
   /*!
    @brief    The new velocity computed in computeNewVelocity.
+
+             通过computeNewVolocity计算出的新速度
 
    This exists to allow the agents to be updated in parallel while preserving order-of-evaluation
    independence.
@@ -228,6 +253,8 @@ class MENGE_API BaseAgent : public ProximityQuery {
   /*!
    @brief    The orientation vector (the direction the agent is facing which is not necessarily the
    same direction as the instantaneous velocity.
+
+             方向向量[Agent面对的方向，不一定与瞬时速度的方向相同]
 
    Not all pedestrian models require orientation in their calculation of a new velocity. However,
    by introducing the property here, we accomplish two things:
@@ -242,23 +269,35 @@ class MENGE_API BaseAgent : public ProximityQuery {
   /*!
    @brief    The agent's maximum angular velocity (in radians/sec) -- used for controlling the
             changes in agent orientation.
+
+             Agent最大的角速度[弧度/秒], 用于控制Agent方向的变化
    */
   float _maxAngVel;
 
   /*!
    @brief    The number of nearby agents used to plan dynamic respones.
+
+             用于规划动态响应的附近Agent的数量
+
    */
   size_t _maxNeighbors;
 
   /*!
    @brief    The maximum distance at which another agent will be considered for a response.
+
+             另一个Agent将被考虑响应的最大距离
+
    */
   float _neighborDist;
 
   /*!
    @brief    The population class for this agent.
 
+             Agent的分类
+
    Used to define behavior and visualization properties.
+
+   用于定义Agent的行为和显示属性
    */
   size_t _class;
 

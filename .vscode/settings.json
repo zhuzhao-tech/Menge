@@ -1,3 +1,7 @@
 {
-    "cmake.sourceDirectory": "${workspaceFolder}/projects/g++"
+    "cmake.sourceDirectory": "${workspaceFolder}/projects/g++",
+    "files.associations": {
+        "vector": "cpp",
+        "cmath": "cpp"
+    }
 }

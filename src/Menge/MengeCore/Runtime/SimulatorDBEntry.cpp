@@ -56,7 +56,10 @@ Agents::SimulatorInterface* SimulatorDBEntry::initSimulator(
   const std::string& sceneFileName,
   bool VERBOSE
 ) {
+  // 仿真器
   Agents::SimulatorInterface* sim = getNewSimulator();
+
+  // Agent初始化
   Agents::AgentInitializer* agentInit = getAgentInitalizer();
 
   // 通过xml来初始化agentInit
@@ -77,8 +80,11 @@ Agents::SimulatorInterface* SimulatorDBEntry::initSimulator(
 
 ////////////////////////////////////////////////////////////////////////////
 
-BFSM::FSM* SimulatorDBEntry::initFSM(const std::string& behaveFile, Agents::SimulatorInterface* sim,
-                                     bool VERBOSE) {
+BFSM::FSM* SimulatorDBEntry::initFSM(
+  const std::string& behaveFile, 
+  Agents::SimulatorInterface* sim,
+  bool VERBOSE
+) {
   logger.line();
   BFSM::FSMDescrip fsmDescrip;
 
@@ -204,7 +210,11 @@ float SimulatorDBEntry::simDuration() const { return _sim != 0x0 ? _sim->getGlob
 
   ////////////////////////////////////////////////////////////////////////////
 #endif
+
+
 Agents::AgentInitializer* SimulatorDBEntry::getAgentInitalizer() const {
   return new Agents::AgentInitializer();
 }
+
+
 }  // namespace Menge

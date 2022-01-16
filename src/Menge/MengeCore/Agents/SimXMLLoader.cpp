@@ -3,7 +3,7 @@
 License
 
 Menge
-Copyright � and trademark � 2012-14 University of North Carolina at Chapel Hill.
+Copyright � and trademark � 2012-14 University of North Carolina at Chapel Hill.
 All rights reserved.
 
 Permission to use, copy, modify, and distribute this software and its documentation
@@ -67,16 +67,20 @@ SimXMLLoader::SimXMLLoader(XMLSimulatorBase* sim) : _sceneFldr("."), _sim(sim), 
 
 ////////////////////////////////////////////////////////////////////
 
-bool SimXMLLoader::loadFromXML(const std::string& filename, AgentInitializer* agentInit,
-                               bool verbose) {
-  // COnfirms file is
+bool SimXMLLoader::loadFromXML(
+  const std::string& filename, 
+  AgentInitializer* agentInit,
+  bool verbose
+) {
+  // Confirms file is
   //  a) available for reading
   //  b) valid xml
   //  c) An "Experiment"
   if (verbose) logger << Logger::INFO_MSG << "Loading from xml: " << filename << ".";
   TiXmlDocument xml(filename);
-  bool loadOkay = xml.LoadFile();
 
+  // 可以正常加载
+  bool loadOkay = xml.LoadFile();
   if (!loadOkay) {  // load xml file
     logger << Logger::ERR_MSG << "Could not load simulation configuration xml (";
     logger << filename << ") due to xml syntax errors.\n";
@@ -91,6 +95,7 @@ bool SimXMLLoader::loadFromXML(const std::string& filename, AgentInitializer* ag
     return false;
   }
 
+  // 根节点必须是Experiment
   if (experimentNode->ValueStr() != "Experiment") {
     logger << Logger::ERR_MSG << "Scene configuration (" << filename;
     logger << ")'s root element is not \"Experiment\".";

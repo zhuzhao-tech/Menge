@@ -133,6 +133,7 @@ SimulatorDB::SimulatorDB() {
 SimulatorDBEntry* SimulatorDB::getDBEntry(const std::string& modelName) {
   std::string name(modelName);
   std::transform(name.begin(), name.end(), name.begin(), ::tolower);
+  
   for (size_t i = 0; i < _entries.size(); ++i) {
     std::string testName = _entries[i]->commandLineName();
     std::transform(testName.begin(), testName.end(), testName.begin(), ::tolower);
