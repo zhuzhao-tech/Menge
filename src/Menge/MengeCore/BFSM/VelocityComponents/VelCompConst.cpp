@@ -3,7 +3,7 @@
 License
 
 Menge
-Copyright © and trademark ™ 2012-14 University of North Carolina at Chapel Hill.
+Copyright ï¿½ and trademark ï¿½ 2012-14 University of North Carolina at Chapel Hill.
 All rights reserved.
 
 Permission to use, copy, modify, and distribute this software and its documentation
@@ -63,8 +63,11 @@ ConstVelComponent::ConstVelComponent(const Vector2& vel) : VelComponent() { setV
 
 /////////////////////////////////////////////////////////////////////
 
-void ConstVelComponent::setPrefVelocity(const Agents::BaseAgent* agent, const Goal*,
-                                        Agents::PrefVelocity& pVel) const {
+void ConstVelComponent::setPrefVelocity(
+  const Agents::BaseAgent* agent, 
+  const Goal*,
+  Agents::PrefVelocity& pVel
+) const {
   pVel.setSingle(_dir);
   pVel.setSpeed(_speed);
   pVel.setTarget(_dir * (_speed * 5.f) + agent->_pos);

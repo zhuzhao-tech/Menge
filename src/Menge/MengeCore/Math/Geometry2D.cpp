@@ -3,7 +3,7 @@
 License
 
 Menge
-Copyright © and trademark ™ 2012-14 University of North Carolina at Chapel Hill.
+Copyright ï¿½ and trademark ï¿½ 2012-14 University of North Carolina at Chapel Hill.
 All rights reserved.
 
 Permission to use, copy, modify, and distribute this software and its documentation
@@ -353,6 +353,8 @@ void AABBShape::setDirections(const Vector2& q, float r, Agents::PrefVelocity& d
       xR = maxX * RMaxXtest + (1 - RMaxXtest) * minX;
       X = (xCoord == -1) * minX + (xCoord == 1) * maxX + (xCoord == 0) * q._x;
     }
+
+    
     if (size._y < D) {
       Y = _minPt._y + size._y * 0.5f;
       yL = Y;

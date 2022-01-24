@@ -128,7 +128,7 @@ class MENGE_API AgentGenerator : public Element {
   /*!
    @brief    Sets the Generators noise generation.
 
-   The AgentGenerator takse position of the float generator provided and will delete it up on
+   The AgentGenerator takes position of the float generator provided and will delete it up on
    its destruction.
 
    @param    gen    The generator.

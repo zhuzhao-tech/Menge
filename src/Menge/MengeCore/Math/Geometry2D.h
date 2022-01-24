@@ -126,6 +126,7 @@ class MENGE_API Geometry2D {
 
   /*!
    @brief    Return the centroid of the goal.
+             返回目标的质心
    */
   virtual Vector2 getCentroid() const = 0;
 };
@@ -191,6 +192,7 @@ class MENGE_API PointShape : public Geometry2D {
 
    @param    pt    The point to test.
    @returns  True if the point is inside the shape.
+             这两个点是否重合
    */
   virtual bool containsPoint(const Vector2& pt) const;
 

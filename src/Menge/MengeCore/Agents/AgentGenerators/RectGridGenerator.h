@@ -52,11 +52,14 @@ namespace Agents {
  The various parameters have the following interpretation:
  - `anchor_x` and `anchor_y` represent the *anchor* point of a rectangular area. All other
     parameters are defined relative to this point.
+
  - `offset_x` and `offset_y` represent the distance between adjacent agents in the grid along the x-
     and y-axes, respectively. The first agent will be placed at the anchor point. The rest of the
     agents will be offset from this point, by the given amounts.
+
  - `count_x` and `count_y` determine the number of rows and columns of agents in the grid. The total
     number of agents will be `count_x` * `count_y`.
+    
  - `rotation` rotates the rectangle off of the world axes the given number of *degrees*. This
     parameter is optional and, if excluded, defaults to a zero-degree rotation. The rotation is
     counter-clockwise for positive values of rotation.

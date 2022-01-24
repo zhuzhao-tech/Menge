@@ -3,7 +3,7 @@
 License
 
 Menge
-Copyright © and trademark ™ 2012-14 University of North Carolina at Chapel Hill.
+Copyright ï¿½ and trademark ï¿½ 2012-14 University of North Carolina at Chapel Hill.
 All rights reserved.
 
 Permission to use, copy, modify, and distribute this software and its documentation
@@ -62,8 +62,11 @@ GoalVelComponent::GoalVelComponent() : VelComponent() {}
 
 /////////////////////////////////////////////////////////////////////
 
-void GoalVelComponent::setPrefVelocity(const Agents::BaseAgent* agent, const Goal* goal,
-                                       Agents::PrefVelocity& pVel) const {
+void GoalVelComponent::setPrefVelocity(
+  const Agents::BaseAgent* agent, 
+  const Goal* goal,
+  Agents::PrefVelocity& pVel
+) const {
   // TODO(curds01): Now that goals can *move*; it might be better to pick a velocity based on an
   // estimated *future* position of the goal rather than it's instantaneous position. At the very
   // least it should be a flag that I can set. Then I'll do a better job of following mobile

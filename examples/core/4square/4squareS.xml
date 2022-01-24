@@ -15,14 +15,15 @@
   <!-- 仿真Agent初始化 -->
 	<AgentProfile name="group1" >
 		<Common max_angle_vel="360"  max_neighbors="10" obstacleSet="1" neighbor_dist="5" r="0.2" pref_speed="1.34" max_speed="2" max_accel="5" />
-		<OpenSteer tau="3" tauObst="6" />
+		
+    <OpenSteer tau="3" tauObst="6" />
 		<PedVO factor="1.57" buffer="0.9" tau="3" tauObst="0.1" turningBias="1.0" />
-        <GCF stand_depth="0.18" move_scale="0.53" slow_width="0.25" sway_change="0.05" />
-        <Helbing mass="80" />
-        <Johansson fov_weight="0.16" />
-        <Karamouzas personal_space="0.69" anticipation="8" />
-        <ORCA tau="3.0" tauObst="0.15" />
-        <Zanlungo mass="80" orient_weight="0.75" />
+    <GCF stand_depth="0.18" move_scale="0.53" slow_width="0.25" sway_change="0.05" />
+    <Helbing mass="80" />
+    <Johansson fov_weight="0.16" />
+    <Karamouzas personal_space="0.69" anticipation="8" />
+    <ORCA tau="3.0" tauObst="0.15" />
+    <Zanlungo mass="80" orient_weight="0.75" />
 	</AgentProfile>
 
   <!-- 仿真Agent初始化 -->
