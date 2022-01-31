@@ -3,7 +3,7 @@
 License
 
 Menge
-Copyright � and trademark � 2012-14 University of North Carolina at Chapel Hill.
+Copyright � and trademark � 2012-14 University of North Carolina at Chapel Hill.
 All rights reserved.
 
 Permission to use, copy, modify, and distribute this software and its documentation
@@ -184,11 +184,14 @@ State* FSM::getNode(const std::string& name) {
 /////////////////////////////////////////////////////////////////////
 
 size_t FSM::addNode(State* node) {
+  // 如果刚开始没有赋值的话
   if (_currNode[0] == 0x0) {
     for (size_t i = 0; i < _agtCount; ++i) {
       _currNode[i] = node;
     }
   }
+
+  // 在node里缓存了所有的State
   _nodes.push_back(node);
   return _nodes.size() - 1;
 }
@@ -269,6 +272,11 @@ bool FSM::doStep() {
   EVENT_SYSTEM->evaluateEvents();
   int agtCount = (int)this->_sim->getNumAgents();
   size_t exceptionCount = 0;
+
+
+// 下面代码里，我们在#pragma omp parallel for 后面加上了 reduction(+:exceptionCount)，
+//           它的意思是告诉编译器：下面的for循环你要分成多个线程跑，但每个线程都要保存变量exceptionCount的拷贝，
+//           循环结束后，所有线程把自己的exceptionCount累加起来作为最后的输出。
 #pragma omp parallel for reduction(+ : exceptionCount)
   for (int a = 0; a < agtCount; ++a) {
     Agents::BaseAgent* agt = this->_sim->getAgent(a);

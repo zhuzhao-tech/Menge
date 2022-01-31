@@ -3,7 +3,7 @@
 License
 
 Menge
-Copyright © and trademark ™ 2012-14 University of North Carolina at Chapel Hill.
+Copyright ï¿½ and trademark ï¿½ 2012-14 University of North Carolina at Chapel Hill.
 All rights reserved.
 
 Permission to use, copy, modify, and distribute this software and its documentation
@@ -99,6 +99,7 @@ FSM* buildFSM(FSMDescrip& fsmDescrip, Agents::SimulatorInterface* sim, bool VERB
 
   std::list<StateDescrip*>::const_iterator sItr = fsmDescrip._states.begin();
   for (; sItr != fsmDescrip._states.end(); ++sItr) {
+
     StateDescrip* sData = *sItr;
     State* s = fsmDescrip.addState(sData);
 
@@ -170,6 +171,7 @@ FSM* buildFSM(FSMDescrip& fsmDescrip, Agents::SimulatorInterface* sim, bool VERB
     std::string stateName = stateItr->first;
     size_t stateID = stateItr->second;
     State* state = fsm->getNode(stateID);
+
     SharedGoalSelector* gs = dynamic_cast<SharedGoalSelector*>(state->getGoalSelector());
     if (gs != 0x0) {
       if (stateNameMap.count(gs->_stateName) == 0) {

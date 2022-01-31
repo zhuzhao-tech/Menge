@@ -3,7 +3,7 @@
 License
 
 Menge
-Copyright © and trademark ™ 2012-14 University of North Carolina at Chapel Hill.
+Copyright ï¿½ and trademark ï¿½ 2012-14 University of North Carolina at Chapel Hill.
 All rights reserved.
 
 Permission to use, copy, modify, and distribute this software and its documentation
@@ -139,11 +139,16 @@ Transition* parseTransition(TiXmlElement* node, const std::string& behaveFldr,
   // 3) Look for child tags: Condition and Target
   for (TiXmlElement* child = node->FirstChildElement(); child;
        child = child->NextSiblingElement()) {
+
     if (child->ValueStr() == "Condition") {
       condition = ConditionDB::getInstance(child, behaveFldr);
+
     } else if (child->ValueStr() == "Target") {
+
       if (target) target->destroy();
+      
       target = TargetDB::getInstance(child, behaveFldr);
+
     } else {
       logger << Logger::ERR_MSG << "Unrecognized child tag of a Transition on line ";
       logger << child->Row() << ": " << child->ValueStr() << ".";

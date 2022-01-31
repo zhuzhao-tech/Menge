@@ -3,7 +3,7 @@
 License
 
 Menge
-Copyright © and trademark ™ 2012-14 University of North Carolina at Chapel Hill.
+Copyright ï¿½ and trademark ï¿½ 2012-14 University of North Carolina at Chapel Hill.
 All rights reserved.
 
 Permission to use, copy, modify, and distribute this software and its documentation
@@ -169,6 +169,7 @@ Goal* GoalSet::getRandomWeightedGoal() {
     assert(itr != _goals.end() && "A goalID does not map to a goal");
     tgtGoal = itr->second;
     float accumWeight = tgtGoal->_weight;
+
     for (size_t i = 1; i < _goalIDs.size(); ++i) {
       if (accumWeight > TGT_WEIGHT) break;
       itr = _goals.find(_goalIDs[i]);
@@ -185,10 +186,12 @@ Goal* GoalSet::getRandomWeightedGoal() {
 void GoalSet::setGoalFull(const Goal* goal) const {
   size_t i = 0;
   std::map<size_t, Goal*>::const_iterator itr;
+
   while (i < _goalIDs.size()) {
     itr = _goals.find(_goalIDs[i]);
     assert(itr != _goals.end() && "A goalID does not map to a goal");
     const Goal* testGoal = itr->second;
+
     if (testGoal == goal) {
       _totalWeight -= goal->_weight;
       _goalIDs.erase(_goalIDs.begin() + i);  // todo: should this just be itr?
@@ -196,6 +199,7 @@ void GoalSet::setGoalFull(const Goal* goal) const {
     } else {
       ++i;
     }
+    
   }
 }
 

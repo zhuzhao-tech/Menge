@@ -3,7 +3,7 @@
 License
 
 Menge
-Copyright � and trademark � 2012-14 University of North Carolina at Chapel Hill.
+Copyright � and trademark � 2012-14 University of North Carolina at Chapel Hill.
 All rights reserved.
 
 Permission to use, copy, modify, and distribute this software and its documentation
@@ -90,10 +90,15 @@ void AgentKDTree::agentQuery(ProximityQuery* filter) const {
 void AgentKDTree::buildTreeRecursive(size_t begin, size_t end, size_t node) {
   _tree[node]._begin = begin;
   _tree[node]._end = end;
+
+  // _agents[begin]的位置
   const Vector2& pos = _agents[begin]->_pos;
+
+  // 先对_tree[node]的(minX, minY)和(maxX, maxY)进行赋值
   _tree[node]._minX = _tree[node]._maxX = pos.x();
   _tree[node]._minY = _tree[node]._maxY = pos.y();
 
+  // 开始遍历，找到_agents中的最小和最大, 也就是(minX, minY)和(maxX, maxY)
   for (size_t i = begin + 1; i < end; ++i) {
     const Vector2& posI = _agents[i]->_pos;
     _tree[node]._maxX = std::max(_tree[node]._maxX, posI.x());
@@ -102,23 +107,34 @@ void AgentKDTree::buildTreeRecursive(size_t begin, size_t end, size_t node) {
     _tree[node]._minY = std::min(_tree[node]._minY, posI.y());
   }
 
+
   if (end - begin > MAX_LEAF_SIZE) {
+
+    // maxX - minX > maxY - minY
     /* No leaf node. */
     const bool isVertical =
         (_tree[node]._maxX - _tree[node]._minX > _tree[node]._maxY - _tree[node]._minY);
+
+    // (maxX + minX) * 0.5  or   (maxY + minY) * 0.5
     const float splitValue = (isVertical ? 0.5f * (_tree[node]._maxX + _tree[node]._minX)
                                          : 0.5f * (_tree[node]._maxY + _tree[node]._minY));
 
     size_t left = begin;
     size_t right = end;
 
+    // 这是一个排序
+    // 秉承『左小右大』的原则
     while (left < right) {
+
+      // 从左向右找
+      // _agents[left]的position
       Vector2 posL = _agents[left]->_pos;
       while (left < right && (isVertical ? posL.x() : posL.y()) < splitValue) {
         ++left;
         posL = _agents[left]->_pos;
       }
 
+      // 从右向左找
       Vector2 posR = _agents[right - 1]->_pos;
       while (right > left && (isVertical ? posR.x() : posR.y()) >= splitValue) {
         --right;
@@ -126,6 +142,7 @@ void AgentKDTree::buildTreeRecursive(size_t begin, size_t end, size_t node) {
       }
 
       if (left < right) {
+        // 交换地址
         std::swap(_agents[left], _agents[right - 1]);
         ++left;
         --right;
@@ -150,8 +167,12 @@ void AgentKDTree::buildTreeRecursive(size_t begin, size_t end, size_t node) {
 
 /////////////////////////////////////////////////////////////////////////////
 
-void AgentKDTree::queryTreeRecursive(ProximityQuery* filter, Vector2 pt, float& rangeSq,
-                                     size_t node) const {
+void AgentKDTree::queryTreeRecursive(
+  ProximityQuery* filter, 
+  Vector2 pt, 
+  float& rangeSq,
+  size_t node
+) const {
   if (_tree[node]._end - _tree[node]._begin <= MAX_LEAF_SIZE) {
     for (size_t i = _tree[node]._begin; i < _tree[node]._end; ++i) {
       float distance = pt.distanceSq(_agents[i]->_pos);

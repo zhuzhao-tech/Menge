@@ -182,7 +182,9 @@ template <class Agent>
 void SimulatorBase<Agent>::doStep() {
   assert(_spatialQuery != 0x0 && "Can't run without a spatial query instance defined");
 
+  // TODO: want to know
   _spatialQuery->updateAgents();
+
   int AGT_COUNT = static_cast<int>(_agents.size());
 #pragma omp parallel for
   for (int i = 0; i < AGT_COUNT; ++i) {

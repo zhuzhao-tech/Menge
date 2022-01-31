@@ -3,7 +3,7 @@
 License
 
 Menge
-Copyright © and trademark ™ 2012-14 University of North Carolina at Chapel Hill.
+Copyright ï¿½ and trademark ï¿½ 2012-14 University of North Carolina at Chapel Hill.
 All rights reserved.
 
 Permission to use, copy, modify, and distribute this software and its documentation
@@ -225,6 +225,7 @@ bool FSMDescrip::loadFromXML(const std::string& xmlName, bool verbose) {
 void FSMDescrip::addTransition(const std::string& name, Transition* trans) {
   std::string tmpName(name);
   size_t n = tmpName.find_first_of(',');
+  
   while (n != std::string::npos) {
     std::string sName = tmpName.substr(0, n);
     _transitions[sName].push_back(trans->copy());

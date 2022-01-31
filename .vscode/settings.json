@@ -2,6 +2,7 @@
     "cmake.sourceDirectory": "${workspaceFolder}/projects/g++",
     "files.associations": {
         "vector": "cpp",
-        "cmath": "cpp"
+        "cmath": "cpp",
+        "tuple": "cpp"
     }
 }

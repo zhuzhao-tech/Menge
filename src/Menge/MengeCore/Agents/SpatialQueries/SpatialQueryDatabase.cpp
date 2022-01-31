@@ -3,7 +3,7 @@
 License
 
 Menge
-Copyright © and trademark ™ 2012-14 University of North Carolina at Chapel Hill.
+Copyright ï¿½ and trademark ï¿½ 2012-14 University of North Carolina at Chapel Hill.
 All rights reserved.
 
 Permission to use, copy, modify, and distribute this software and its documentation
@@ -61,7 +61,7 @@ std::string ElementDB<Agents::SpatialQueryFactory, Agents::SpatialQuery>::getEle
 template <>
 void ElementDB<Agents::SpatialQueryFactory, Agents::SpatialQuery>::addBuiltins() {
   addFactory(new Agents::BergKDTreeFactory());
-  addFactory(new Agents::NavMeshSpatialQueryFactory());
+  // addFactory(new Agents::NavMeshSpatialQueryFactory());
 }
 
 }  // namespace Menge

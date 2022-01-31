@@ -3,7 +3,7 @@
 License
 
 Menge
-Copyright � and trademark � 2012-14 University of North Carolina at Chapel Hill.
+Copyright � and trademark � 2012-14 University of North Carolina at Chapel Hill.
 All rights reserved.
 
 Permission to use, copy, modify, and distribute this software and its documentation
@@ -157,8 +157,11 @@ State* State::testTransitions(Agents::BaseAgent* agent, std::set<State*>& visite
 #endif
 
   if (visited.find(this) != visited.end()) return 0x0;
+
+  // 当前状态
   visited.insert(this);
 
+  // 找到当前agent的目标
   _goalLock.lockRead();
   Goal* goal = _goals[agent->_id];
   _goalLock.releaseRead();

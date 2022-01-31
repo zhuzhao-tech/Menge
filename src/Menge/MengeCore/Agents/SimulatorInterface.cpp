@@ -3,7 +3,7 @@
 License
 
 Menge
-Copyright � and trademark � 2012-14 University of North Carolina at Chapel Hill.
+Copyright � and trademark � 2012-14 University of North Carolina at Chapel Hill.
 All rights reserved.
 
 Permission to use, copy, modify, and distribute this software and its documentation
@@ -88,16 +88,26 @@ void SimulatorInterface::setBFSM(BFSM::FSM* fsm) { _fsm = fsm; }
 bool SimulatorInterface::step() {
   const int agtCount = static_cast<int>(getNumAgents());
   if (_isRunning) {
+    // 写入文件
     if (_scbWriter) _scbWriter->writeFrame(_fsm);
+
+    // maxDuration
     if (_globalTime >= _maxDuration) {
       _isRunning = false;
     } else {
+
+      // SUB_STEPS可以指定, 当前指定为0
       for (size_t i = 0; i <= SUB_STEPS; ++i) {
         try {
+          // 这里是评估, 切换的next State
           // TODO: doStep for FSM is a *bad* name; it should be "evaluate".
           _isRunning = !_fsm->doStep();
+
+          // 这里是真正doStep
           doStep();
+
           _fsm->doTasks();
+          
           _fsm->moveGoals(TIME_STEP);
         } catch (BFSM::FSMFatalException& e) {
           logger << Logger::ERR_MSG << "Error in updating the finite state ";
